@@ -1,11 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-pin_one:
+existing_pin:
   user: user_vic
-  geolocation_lat: MyString
-  geolocation_lng: MyString
+  latitude: 47.623154
+  longitude: -122.322318
 
-pin_two:
-  user: user_vic
-  geolocation_lat: MyString
-  geolocation_lng: MyString
+pin_one_mile_less_from_existing_pin:
+  user: user_shane
+  latitude: 47.622424
+  longitude: -122.312803
+
+pin_one_mile_more_from_existing_pin:
+  user: user_shane
+  latitude: 47.599696
+  longitude: -122.332720
