@@ -3,7 +3,7 @@ class Pin < ApplicationRecord
   geocoded_by :ip
   after_validation :geocode
 
-  def self.distance_between_pins user_pin, existing_pin
+  def self.distance_between_pins_under_one_mile? user_pin, existing_pin
     distance = Geocoder::Calculations.distance_between(user_pin, existing_pin)
     distance <= 1.0 ? true : false
   end

@@ -5,7 +5,7 @@ class PinTest < ActiveSupport::TestCase
     expectation = true
     existing_pin = pins(:existing_pin)
     user_pin = pins(:pin_one_mile_less_from_existing_pin)
-    distance = Pin.distance_between_pins(user_pin, existing_pin)
+    distance = Pin.distance_between_pins_under_one_mile?(user_pin, existing_pin)
     assert_equal true, distance
   end
 
@@ -13,7 +13,7 @@ class PinTest < ActiveSupport::TestCase
     expectation = false
     existing_pin = pins(:existing_pin)
     user_pin = pins(:pin_one_mile_more_from_existing_pin)
-    distance = Pin.distance_between_pins(user_pin, existing_pin)
+    distance = Pin.distance_between_pins_under_one_mile?(user_pin, existing_pin)
     assert_equal expectation, distance
   end
 end
