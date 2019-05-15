@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2019_05_14_040935) do
 
   create_table "pins", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "geolocation_lat", null: false
-    t.string "geolocation_lng", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_pins_on_user_id"
