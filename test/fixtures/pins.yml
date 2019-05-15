@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
+pin_one:
+  user: user_vic
   geolocation_lat: MyString
   geolocation_lng: MyString
 
-two:
-  user: two
+pin_two:
+  user: user_vic
   geolocation_lat: MyString
   geolocation_lng: MyString
