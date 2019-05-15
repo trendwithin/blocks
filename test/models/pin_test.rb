@@ -16,4 +16,10 @@ class PinTest < ActiveSupport::TestCase
     distance = Pin.distance_between_pins_under_one_mile?(user_pin, existing_pin)
     assert_equal expectation, distance
   end
+
+  test 'returns pins created_at within the past hour' do
+    expectation = 5
+    value = Pin.created_at_within_hour
+    assert_equal expectation, value.count
+  end
 end
