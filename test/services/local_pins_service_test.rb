@@ -5,9 +5,16 @@ class LocalPinsServiceTest < ActiveSupport::TestCase
 
   test 'returns nil when no pins within past hour found' do
     mock = MiniTest::Mock.new
-    def mock.proximity_pins; nil; end
+    mock.expect :proximity_pins, nil
+
     LocalPinsService.stub :new, mock do
-      assert nil
+      assert_nil mock.proximity_pins
     end
+    mock.verify
+  end
+
+  test 'returns records within past hour when found' do
+    pins = LocalPinsService.new.proximity_pins
+    assert_equal 5, pins.count
   end
 end
