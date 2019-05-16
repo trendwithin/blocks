@@ -1,11 +1,34 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-pin_one:
+existing_pin:
   user: user_vic
-  geolocation_lat: MyString
-  geolocation_lng: MyString
+  latitude: 47.623154
+  longitude: -122.322318
 
-pin_two:
+pin_one_mile_less_from_existing_pin:
+  user: user_shane
+  latitude: 47.622424
+  longitude: -122.312803
+
+pin_one_mile_more_from_existing_pin:
+  user: user_shane
+  latitude: 47.599696
+  longitude: -122.332720
+
+pin_created_at_ten_mins_ago:
   user: user_vic
-  geolocation_lat: MyString
-  geolocation_lng: MyString
+  latitude: 47.623154
+  longitude: -122.322318
+  created_at: <%= 10.minutes.ago.to_s %>
+
+pin_created_at_fifty_mins_ago:
+  user: user_shane
+  latitude: 47.599696
+  longitude: -122.332720
+  created_at: <%= 50.minutes.ago.to_s %>
+
+pin_created_at_two_hours_ago:
+  user: user_shane
+  latitude: 47.599696
+  longitude: -122.332720
+  created_at: <%= 2.hours.ago.to_s %>
