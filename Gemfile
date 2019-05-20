@@ -6,6 +6,7 @@ ruby '2.5.0'
 #PROJECT SPECIFIC GEMS
 gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0.rc1'
