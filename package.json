@@ -8,6 +8,7 @@
     "@rails/ujs": "^6.0.0-alpha",
     "@rails/webpacker": "^4.0.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "dotenv": "^8.0.0",
     "google-maps-react": "^2.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
