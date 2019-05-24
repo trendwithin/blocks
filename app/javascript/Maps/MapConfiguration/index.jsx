@@ -13,7 +13,7 @@ export class MapConfiguration extends React.Component {
 
   renderMap = () => {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
-    loadScript('https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&callback=initMap');
+    loadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`);
     window.initMap = this.initMap;
   };
 
