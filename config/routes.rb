@@ -4,5 +4,13 @@ Rails.application.routes.draw do
 
   get 'pins/pinned_locations'
 
+  # API
+  namespace :api do
+    namespace :v1 do
+      resources :users #, only: [:index]
+      resources :pins
+    end
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
