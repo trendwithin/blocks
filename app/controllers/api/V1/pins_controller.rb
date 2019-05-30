@@ -3,6 +3,8 @@ module Api
     class PinsController < ApiVersionOneBaseController
       def index
         render json: PinSerializer.new(Pin.all.created_at_within_hour)
+        # Pin.all functionality for Google Maps Until React/Maps Feature Complete
+        # render json: PinSerializer.new(Pin.all)
       end
 
       def create
