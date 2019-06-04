@@ -4,8 +4,8 @@ const FriendListItem = ({ item }) => {
   return (
     <div>
       <h1>Attributes</h1>
-      {item[0].id}
-      {item[0].attributes.longitude}
+      {item.id}
+      {item.attributes.longitude}
     </div>
   );
 };
