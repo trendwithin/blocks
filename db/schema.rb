@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_040935) do
+ActiveRecord::Schema.define(version: 2019_06_05_150020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "interests", force: :cascade do |t|
+    t.string "curiosity", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["curiosity"], name: "index_interests_on_curiosity", unique: true
+  end
 
   create_table "pins", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -22,6 +29,15 @@ ActiveRecord::Schema.define(version: 2019_05_14_040935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_pins_on_user_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "subject", null: false
+    t.bigint "interest_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["interest_id"], name: "index_topics_on_interest_id"
+    t.index ["subject"], name: "index_topics_on_subject", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,4 +53,5 @@ ActiveRecord::Schema.define(version: 2019_05_14_040935) do
   end
 
   add_foreign_key "pins", "users"
+  add_foreign_key "topics", "interests"
 end
