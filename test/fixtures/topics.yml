@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+topic_italiano  :
+  subject: Italian
+  interest: interest_one
+
+topic_web_development:
+  subject: Rails
+  interest: interest_two

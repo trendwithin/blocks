@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.create!(email: 'test@example.com', password: 'password')
+user = User.create!(email: 'seed@example.com', password: 'password')
+interest = Interest.create!(curiosity: 'Language')
+topic = Topic.create!(subject: 'Italian', interest_id: interest.id)
+pin = Pin.create(user_id: user.id, latitude: 47.599696, longitude: -122.332720, topic_id: topic.id)
