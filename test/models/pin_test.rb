@@ -1,39 +1,34 @@
 require 'test_helper'
 
 class PinTest < ActiveSupport::TestCase
+  attr_reader :user, :pin, :topic
+
+  setup do
+    @user = users(:user_vic)
+    @pin = pins(:existing_pin)
+    @topic = topics(:topic_italiano)
+  end
 
   test 'creates a new pin' do
-    user = users(:user_vic)
     latitude = 47.623154
     longitude = -122.322318
     pin = Pin.new
     pin.latitude = latitude
     pin.longitude = longitude
     pin.user_id = user.id
+    pin.topic_id = topic.id
     assert pin.valid?
   end
 
   test 'nil longitude raises Exception' do
-    user = users(:user_vic)
-    latitude = 47.623154
-    longitude = ''
-    pin = Pin.new
-    pin.latitude = latitude
-    pin.longitude = longitude
-    pin.user_id = user.id
+    pin.longitude = ''
     assert_raises  ActiveRecord::NotNullViolation do
       pin.save
     end
   end
 
   test 'nil latitude raises Exception' do
-    user = users(:user_vic)
-    latitude = ''
-    longitude = -122.322318
-    pin = Pin.new
-    pin.latitude = latitude
-    pin.longitude = longitude
-    pin.user_id = user.id
+    pin.latitude = ''
     assert_raises  ActiveRecord::NotNullViolation do
       pin.save
     end
@@ -59,5 +54,11 @@ class PinTest < ActiveSupport::TestCase
     expectation = 5
     value = Pin.created_at_within_hour
     assert_equal expectation, value.count
+  end
+
+  test 'pin related to current user topic' do
+    expectation = 3
+    result = pin.pins_related_by_topic.count
+    assert_equal expectation, result
   end
 end
