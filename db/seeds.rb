@@ -10,3 +10,7 @@ user = User.create!(email: 'seed@example.com', password: 'password')
 interest = Interest.create!(curiosity: 'Language')
 topic = Topic.create!(subject: 'Italian', interest_id: interest.id)
 pin = Pin.create(user_id: user.id, latitude: 47.599696, longitude: -122.332720, topic_id: topic.id)
+
+webdev = Interest.create!(curiosity: 'Web Development')
+Topic.create!(subject: 'Rails', interest_id: webdev.id )
+Topic.create!(subject: 'React', interest_id: webdev.id )
