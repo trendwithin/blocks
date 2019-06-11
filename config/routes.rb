@@ -2,13 +2,17 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   devise_for :users
 
-  get 'pins/pinned_locations'
 
+
+  get 'pins/pinned_locations'
+  resources :pins
   # API
   namespace :api do
     namespace :v1 do
       resources :users #, only: [:index]
       resources :pins
+      resources :interests, only: [:index]
+      get 'topics/interest_topics'
     end
   end
 
