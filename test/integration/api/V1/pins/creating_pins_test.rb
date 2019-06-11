@@ -7,7 +7,8 @@ class CreatingPinsTest < ActionDispatch::IntegrationTest
     pin_attributes = {
         latitude: latitude,
         longitude: longitude,
-        user_id: users(:user_vic).id
+        user_id: users(:user_vic).id,
+        topic_id: topics(:topic_italiano).id
     }
     assert_difference('Pin.count') do
       post api_v1_pins_url, params: { pin: pin_attributes }, as: :json
