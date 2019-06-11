@@ -1,11 +1,4 @@
 <%= form_with model: @pin do |f| %>
-  <div class="field">
-    <%= f.label :interest_id %>
-    <%= f.collection_select :interest_id, Interest.order(:curiosity), :id, :curiosity, include_blank: true %>
-  </div>
-  <div class="field">
-    <%= f.label :topic_id %>
-    <%= f.grouped_collection_select :topic_id, Interest.order(:curiosity), :topics, :curiosity, :id, :subject, include_blank: true %>
-  </div>
-  <div class="actions"><%= f.submit %></div>
+  <div id="create-pin-form-helper"></div>
+<%= javascript_pack_tag 'form_for_creating_pins' %>
 <% end %>
