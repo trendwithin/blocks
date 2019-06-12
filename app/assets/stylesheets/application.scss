@@ -13,7 +13,15 @@
  *= require_tree .
  *= require_self
  */
+ @import 'flex/map_container';
+
+ #responsive-map {
+   overflow: visible;
+   padding-bottom: 5%;
+   position: relative;
+   height: 0;
+ }
 #map {
-  height: 100vh;
+  height: 50vh;
   width: 100vw;
 }
