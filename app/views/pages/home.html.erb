@@ -1,8 +1,12 @@
 <h1>Home</h1>
- <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+ <%= link_to('Logout', destroy_user_session_path, method: :delete, data: { user: @user.id }, id: 'logout-link') %>
  <section class='flex-container'>
   <div class="flash-friend-map">
     <div id="flash-friend"></div>
     <%= javascript_pack_tag 'flash_friend_map' %>
+    <%= form_with model: @pin do |f| %>
+      <div id="create-pin-form-helper"></div>
+    <%#= javascript_pack_tag 'form_for_creating_pins' %>
+    <% end %>
   </div>
  </section>
