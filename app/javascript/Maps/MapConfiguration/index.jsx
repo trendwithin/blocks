@@ -57,22 +57,30 @@ export class MapConfiguration extends React.Component {
     }
 
     if (toggled.clickedButton === 'Pin My Location') {
+      const userId = document.getElementById('logout-link').getAttribute('data-user');
       const lat = this.state.currentLocation.lat;
       const lng = this.state.currentLocation.lng;
-      let infoWindow = new window.google.maps.InfoWindow();
-      if (toggled.clickedButton === 'Pin My Location') {
-        let marker = new window.google.maps.Marker(
-          { position: { lat: lat, lng: lng },
-          map: this.state.map,
-          title: 'Current Location',
-        });
+      pins.post('/pins', {
+        user_id: 1,
+        latitude: lat,
+        longitude: lng,
+        topic_id: 1,
+      })
+      .then(response => {
+        console.log(response.status);
 
-        marker.addListener('click', function () {
-          infoWindow.setContent('Current Location');
-          infoWindow.open(map, marker);
-        });
-      }
-
+        if (response.status == 201) {
+          let marker = new window.google.maps.Marker(
+            { position: { lat: lat, lng: lng },
+              map: this.state.map,
+              title: 'Current Location',
+            });
+          marker.addListener('click', function () {
+            infoWindow.setContent('Current Location');
+            infoWindow.open(map, marker);
+          });
+        }
+      });
       this.setState({ isHidden: true });
     }
   };
@@ -114,7 +122,9 @@ export class MapConfiguration extends React.Component {
   render() {
     return (
       <main>
+        <div id='map-responsive'>
         <div id='map'></div>
+        </div>
         { !this.state.isHidden &&
           <Button onButtonClick={this.handleButtonClick} text={'Pin My Location'}/>
         }
