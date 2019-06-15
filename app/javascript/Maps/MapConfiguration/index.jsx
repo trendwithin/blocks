@@ -5,17 +5,18 @@ import FlashFriendList from '../Lists/FlashFriend/FriendList';
 import pins from '../apis/FlashFriendEndPoint';
 
 export class MapConfiguration extends React.Component {
-
-  state = {
-    map: {},
-    currentLocation: {
-      lat: 90.00000,
-      lng: 135.0000,
-    },
-    flashFriends: [],
-    findLocalPinsClicked: false,
-    isHidden: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      map: {},
+      pins: [],
+      currentLocation: {
+        lat: 90,
+        lng: 135,
+      },
+      flashFriends: [],
+    };
+  }
 
   componentDidMount() {
     if (navigator.geolocation) {
@@ -34,66 +35,69 @@ export class MapConfiguration extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.currentLocation !== this.state.currentLocation) {
-      // for some unknown reason map unlikely to recenter w/o
+      const lat = this.state.currentLocation.lat;
+      const lng = this.state.currentLocation.lng;
+      this.props.updateCoordinates(lat, lng);
+    }
+
+    if (prevState.pins !== this.state.pins) {
+      this.mapMarkers(this.state.pins);
     }
   }
 
-  handleButtonClick = async(toggled) => {
+  componentWillReceiveProps(nextProps) {
+    this.setState({ pins: nextProps.pins });
 
-    if (toggled.clickedButton == 'Find Local Pins') {
-      await pins.get('/pins', { data: 'data' })
-      .then(response => {
-        const userClicked = this.state.findLocalPinsClicked = !this.state.findLocalPinsClicked;
-        this.setState(
-          { flashFriends: response.data.data,
-            findLocalPinsClicked: userClicked,
-          }
-        );
-        this.mapMarkers(response.data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (nextProps.pinned) {
+      this.pinMapLocation();
     }
+  }
 
-    if (toggled.clickedButton === 'Pin My Location') {
-      const lat = this.state.currentLocation.lat;
-      const lng = this.state.currentLocation.lng;
-      let infoWindow = new window.google.maps.InfoWindow();
-      if (toggled.clickedButton === 'Pin My Location') {
+  pinMapLocation = () => {
+    const userId = document.getElementById('logout-link').getAttribute('data-user');
+    const lat = this.state.currentLocation.lat;
+    const lng = this.state.currentLocation.lng;
+    const topicId = this.props.selectedTopic;
+    pins.post('/pins', {
+      user_id: userId,
+      latitude: lat,
+      longitude: lng,
+      topic_id: 1,
+    })
+    .then(response => {
+      if (response.status == 201) {
         let marker = new window.google.maps.Marker(
           { position: { lat: lat, lng: lng },
-          map: this.state.map,
-          title: 'Current Location',
-        });
-
+            map: this.state.map,
+            title: 'Current Location',
+          });
         marker.addListener('click', function () {
           infoWindow.setContent('Current Location');
           infoWindow.open(map, marker);
         });
       }
-
-      this.setState({ isHidden: true });
-    }
+    });
   };
 
   mapMarkers = (markers) => {
-    let infoWindow = new window.google.maps.InfoWindow();
-    let contentString = 'String';
-    markers.map(data => {
-      const lat = data.attributes.latitude;
-      const lng = data.attributes.longitude;
-      let marker = new window.google.maps.Marker(
-        { position: { lat: lat, lng: lng },
-        map: this.state.map,
-        title: 'Title',
-      }
-    );
-      marker.addListener('click', function () {
-        infoWindow.setContent(contentString);
-        infoWindow.open(map, marker);
+    if (markers.length !== 0) {
+      let infoWindow = new window.google.maps.InfoWindow();
+      let contentString = 'String';
+      markers.map(data => {
+        const lat = data.attributes.latitude;
+        const lng = data.attributes.longitude;
+        let marker = new window.google.maps.Marker(
+          { position: { lat: lat, lng: lng },
+          map: this.state.map,
+          title: 'Title',
+        }
+      );
+        marker.addListener('click', function () {
+          infoWindow.setContent(contentString);
+          infoWindow.open(map, marker);
+        });
       });
-    });
+    }
   };
 
   renderMap = () => {
@@ -107,21 +111,21 @@ export class MapConfiguration extends React.Component {
       center: { lat: this.state.currentLocation.lat, lng: this.state.currentLocation.lng },
       zoom: 16,
     });
-
+    window.google.maps.event.trigger(map, 'resize');
     this.setState({ map: map });
+    this.resizeMap(map);
+  };
+
+  resizeMap = (map) => {
+    window.google.maps.event.trigger(map, 'resize');
   };
 
   render() {
     return (
       <main>
-        <div id='map'></div>
-        { !this.state.isHidden &&
-          <Button onButtonClick={this.handleButtonClick} text={'Pin My Location'}/>
-        }
-        <Button onButtonClick={this.handleButtonClick} text={'Find Local Pins'}/>
-        <FlashFriendList list={this.state.flashFriends}
-          userClicked={this.state.findLocalPinsClicked}
-        />
+        <div id='map-responsive'>
+          <div id='map'></div>
+        </div>
       </main>
     );
   }

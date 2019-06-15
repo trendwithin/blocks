@@ -6,13 +6,13 @@ class InterestSerializerTest < ActiveSupport::TestCase
     @topic = topics(:topic_italiano)
   end
 
-  test "serializer top level key == ['data']" do
+  test "serializer top level key" do
     serializer = TopicSerializer.new(@topic)
     serialized_topic = serializer.as_json
     assert_equal ['data'], serialized_topic.keys
   end
 
-  test "serializer top level ['data'] keys match expected keys" do
+  test "serializer top level keys match expected keys" do
     serializer = TopicSerializer.new(@topic)
     serialized_topic = serializer.as_json
     data_keys = ["id", "type", "attributes", "relationships"]

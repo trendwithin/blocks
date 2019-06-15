@@ -9,7 +9,6 @@ module Api
 
       def create
         @pin = Pin.new(pin_params)
-
         if @pin.save
           render json: @pin, status: :created
         else
@@ -21,7 +20,7 @@ module Api
         def pin_params
           params
             .require(:pin)
-            .permit(:user_id, :longitude, :latitude)
+            .permit(:user_id, :longitude, :latitude, :topic_id)
         end
     end
   end
