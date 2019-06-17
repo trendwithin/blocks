@@ -51,13 +51,18 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-      <div>
-      <MapConfiguration
-        selectedTopic={this.state.topicValue}
-        updateCoordinates={this.setCurrentLocation}
-        pins={this.state.pins}
-        pinned={this.state.pinLocation}
-      />
+      <div className='map-container'>
+        <section className='flex-container'>
+          <div className='flash-friend-map'>
+            <MapConfiguration
+              selectedTopic={this.state.topicValue}
+              updateCoordinates={this.setCurrentLocation}
+              pins={this.state.pins}
+              pinned={this.state.pinLocation}
+            />
+          </div>
+        </section>
+        <div className='create-pin-form'>
         <CreatePinForm
           hiddenTopic={this.state.css.class}
           showTopic={this.onInterestSelectedShowTopic}
@@ -66,6 +71,7 @@ class MapContainer extends React.Component {
           localPins={this.findLocalPins}
           pinLocation={this.pinMyLocation}
         />
+        </div>
         <FlashFriendList list={this.state.flashFriends}
           userClicked={this.state.findLocalPinsClicked}
         />

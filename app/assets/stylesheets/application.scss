@@ -14,7 +14,9 @@
  *= require_self
  */
  @import 'flex/map_container';
-
+body {
+  background: #eaece5;
+}
  #responsive-map {
    overflow: visible;
    padding-bottom: 5%;
