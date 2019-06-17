@@ -72,6 +72,7 @@ class CreatePinForm extends React.Component {
       <div className='flex flex-row flex-wrap'>
         <div className='field flex flex-column w-50'>
           <label htmlFor='pin_interest_id'>Interest</label>
+          <div className='box'>
           <select name="pin[interst_id]" id="pin_interest_id"
             onChange={this.onInterestChange}
           >
@@ -80,11 +81,13 @@ class CreatePinForm extends React.Component {
               <option key={item.value} value={item.display}>{item.display}</option>)
             }
           </select>
+          </div>
         </div>
         <div className='w-50'>
           <div className={this.props.hiddenTopic}>
             <div className='field flex flex-column'>
               <label htmlFor='pin_topic_id'>Topic</label>
+              <div className='box'>
               <select name="pin[topic_id]" id="pin_topic_id"
                 onChange={this.onTopicChange}
               >
@@ -93,6 +96,7 @@ class CreatePinForm extends React.Component {
                     <option key={item.value} value={item.value}>{item.display}</option>)
                 }
               </select>
+              </div>
             </div>
           </div>
         </div>
