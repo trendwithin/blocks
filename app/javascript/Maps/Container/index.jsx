@@ -2,6 +2,7 @@ import React from 'react';
 import MapConfiguration from '../MapConfiguration';
 import CreatePinForm from 'Forms/CreatePin';
 import FlashFriendList from '../Lists/FlashFriend/FriendList';
+import SimpleTabs from '../Lists/FlashFriend/TabbedList';
 
 class MapContainer extends React.Component {
   state = {
@@ -49,7 +50,12 @@ class MapContainer extends React.Component {
     this.setState({ pinLocation: true });
   };
 
+  getLocalPins = () => {
+
+  }
+
   render() {
+    const pinsList = this.getLocalPins(), { pins } = this.state
     return (
       <div className='map-container'>
         <section className='flex-container'>
@@ -72,9 +78,14 @@ class MapContainer extends React.Component {
           pinLocation={this.pinMyLocation}
         />
         </div>
-        <FlashFriendList list={this.state.flashFriends}
-          userClicked={this.state.findLocalPinsClicked}
-        />
+        <div className='flash-friend-list'>
+          <FlashFriendList list={this.state.flashFriends}
+            userClicked={this.state.findLocalPinsClicked}
+          />
+        </div>
+        <div className='swipe-friend-list'>
+          <SimpleTabs/>
+        </div>
       </div>
     );
   }
