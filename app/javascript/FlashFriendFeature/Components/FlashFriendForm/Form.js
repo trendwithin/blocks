@@ -3,6 +3,7 @@ import Grid, { GridSpacing } from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem'
+import axiosApi from '../../apis/FlashFriendEndPoint'
 
 const styles = {
   GridSpace: {
@@ -13,16 +14,21 @@ const styles = {
   },
 }
 
-export default ({ interests }) =>
-  <Fragment>
+export default ({ interests, topics, onSelect }) => {
+  const populateTopics = (e) =>
+    onSelect(e.target.value)
+
+  return <Fragment>
     <Grid container spacing={1}>
       <Grid item xs>
         <Paper style={styles.Paper}>
           <div className='box'>
-            <select>
+            <select onChange={populateTopics}>
               <option value>Choose an Interest</option>
               {interests.map(({ id, attributes }) =>
-                <option key={id} value={id}>{attributes.curiosity}</option>
+                <option key={id} value={attributes.curiosity}>
+                  {attributes.curiosity}
+                </option>
               )}
             </select>
           </div>
@@ -34,6 +40,11 @@ export default ({ interests }) =>
           <div className='box'>
             <select>
               <option value>Choose a Topic</option>
+              {topics.map(({ id, attributes }) =>
+                <option key={id} value={attributes.subject}>
+                  {attributes.subject}
+                </option>
+              )}
             </select>
           </div>
         </Paper>
@@ -54,3 +65,4 @@ export default ({ interests }) =>
       </Grid>
     </Grid>
   </Fragment>
+}

@@ -5,6 +5,7 @@ import axiosApi from '../../apis/FlashFriendEndPoint'
 export default class extends Component {
   state = {
     interests: [],
+    topics: [],
   }
 
   async componentDidMount() {
@@ -15,8 +16,20 @@ export default class extends Component {
       })
   }
 
+  onInterestSelected = async (value) => {
+    console.log(value)
+    const { data, status } = await axiosApi.get(`topics/interest_topics?interest=${value}`)
+    console.log(status);
+    if (status == 200)
+      this.setState({
+        topics: data.data
+      })
+
+    console.log(this.state);
+  }
+
   render() {
-    const { interests } = this.state
-    return <Form interests = { interests } />
+    const { interests, topics } = this.state
+    return <Form interests={ interests } topics={topics} onSelect={this.onInterestSelected}/>
   }
 }
