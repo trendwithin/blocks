@@ -14,9 +14,19 @@ const styles = {
   },
 }
 
-export default ({ interests, topics, onSelect }) => {
+export default (
+  { interests,
+    topics,
+    onInterestSelect,
+    onTopicSelect,
+    handleButtonClick
+  }) => {
+
   const populateTopics = (e) =>
-    onSelect(e.target.value)
+    onInterestSelect(e.target.value)
+
+  const getTopicId = (e) =>
+    onTopicSelect(e)
 
   return <Fragment>
     <Grid container spacing={1}>
@@ -38,10 +48,10 @@ export default ({ interests, topics, onSelect }) => {
       <Grid item xs>
         <Paper style={styles.Paper}>
           <div className='box'>
-            <select>
+            <select onChange={getTopicId}>
               <option value>Choose a Topic</option>
               {topics.map(({ id, attributes }) =>
-                <option key={id} value={attributes.subject}>
+                <option key={id} value={id}>
                   {attributes.subject}
                 </option>
               )}
@@ -54,13 +64,15 @@ export default ({ interests, topics, onSelect }) => {
     <Grid container spacing={1} style={styles.GridSpace}>
       <Grid item xs>
         <Paper style={styles.Paper}>
-          Button Three
+            <button onClick={handleButtonClick} value='find'>
+              Find Local Interest
+            </button>
         </Paper>
       </Grid>
 
       <Grid item xs>
         <Paper style={styles.Paper}>
-          Button Four
+          <button onClick={handleButtonClick} value='pin'>Pin Location</button>
         </Paper>
       </Grid>
     </Grid>
