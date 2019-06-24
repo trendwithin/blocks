@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import FlashFriendForm from './Components/FlashFriendForm'
+import Map from './Components/FlashFriendMap'
 
 export default class extends Component {
   state = {
@@ -21,10 +22,18 @@ export default class extends Component {
       })
   }
 
+  getLocalPins = (data) => {
+    const  markers  = data.data
+    this.setState({
+      markers: markers
+    })
+  }
+
   render() {
-    const { currentLocation } = this.state
+    const { currentLocation, markers } = this.state
     return <Fragment>
-      <FlashFriendForm coords={currentLocation}/>
+      <Map coords={currentLocation} markers={markers}/>
+      <FlashFriendForm coords={currentLocation} markerData={this.getLocalPins}/>
     </Fragment>
 
   }

@@ -22,7 +22,6 @@ export default class extends Component {
 
   onInterestSelected = async (value) => {
     const { data, status } = await axiosApi.get(`topics/interest_topics?interest=${value}`)
-    console.log(data);
     if (status == 200)
       this.setState({
         topics: data.data
@@ -30,7 +29,6 @@ export default class extends Component {
   }
 
   onTopicSelected = (e) => {
-    console.log(e.target.value);
     this.setState({
       topicId: e.target.value
     })
@@ -39,8 +37,11 @@ export default class extends Component {
   onButtonClicked = async (e) => {
     if (e.target.value === 'find') {
       const { topicId } = this.state
+      const { markerData } = this.props
       const { data, status } = await axiosApi.get(`/pins?topic=${topicId}`, { data: 'data' })
-      console.log(data);
+      if (status === 200) {
+        markerData(data)
+      }
     } else if (e.target.value === 'pin') {
         const userId = document.getElementById('logout-link').getAttribute('data-user')
         const { topicId } = this.state
