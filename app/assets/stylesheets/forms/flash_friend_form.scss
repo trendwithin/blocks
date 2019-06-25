@@ -1,19 +1,21 @@
 .box {
   // padding-top: 10px;
   position: relative;
+  width: 100%;
 }
 
 .box select {
   background-color: #0563af;
   color: white;
   padding: 8px;
-  width: 175px;
+  width: 100%;
   border: none;
   font-size: 16px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
   -webkit-appearance: button;
   appearance: button;
   outline: none;
+  height: 50px;
 }
 
 .box::before {
@@ -50,8 +52,9 @@ button {
   text-align: center;
   font-size: 16px;
   padding: 8px;
-  width: 175px;
   transition: all 0.5s;
   cursor: pointer;
   margin-top: 15px;
+  height: 50px;
+  width: 100%;
 }

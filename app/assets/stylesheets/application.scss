@@ -27,3 +27,12 @@ body {
   height: 50vh;
   width: 100vw;
 }
+
+@media only screen and (max-width: 600px) {
+  button {
+    font-size: 80%;
+  }
+  div.box select, option {
+    font-size: 80%;
+  }
+}
