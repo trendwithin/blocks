@@ -1,6 +1,6 @@
 .box {
-  padding-top: 10px;
-  position: absolute;
+  // padding-top: 10px;
+  position: relative;
 }
 
 .box select {
@@ -20,9 +20,9 @@
   content: "\f13a";
   font-family: FontAwesome;
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
+  top: -9%;
+  right: 16%;
+  width: 19%;
   height: 100%;
   text-align: center;
   font-size: 28px;
