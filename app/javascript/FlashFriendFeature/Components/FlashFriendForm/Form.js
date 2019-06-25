@@ -6,8 +6,12 @@ import ListItem, { ListItemProps } from '@material-ui/core/ListItem'
 import axiosApi from '../../apis/FlashFriendEndPoint'
 
 const styles = {
+  Grid: {
+    width: '100%',
+  },
   GridSpace: {
     marginTop: 5,
+    width: '100%',
   },
   Paper: {
     padding: 20,
@@ -29,8 +33,8 @@ export default (
     onTopicSelect(e)
 
   return <Fragment>
-    <Grid container spacing={1}>
-      <Grid item xs>
+    <Grid container spacing={1} style={styles.Grid}>
+      <Grid item xs={6}>
         <Paper style={styles.Paper}>
           <div className='box'>
             <select onChange={populateTopics}>
@@ -45,7 +49,7 @@ export default (
         </Paper>
       </Grid>
 
-      <Grid item xs>
+      <Grid item xs={6}>
         <Paper style={styles.Paper}>
           <div className='box'>
             <select onChange={getTopicId}>
@@ -62,15 +66,17 @@ export default (
     </Grid>
 
     <Grid container spacing={1} style={styles.GridSpace}>
-      <Grid item xs>
+      <Grid item xs={6}>
         <Paper style={styles.Paper}>
+          <div className='box'>
             <button onClick={handleButtonClick} value='find'>
               Find Local Interest
             </button>
+          </div>
         </Paper>
       </Grid>
 
-      <Grid item xs>
+      <Grid item xs={6}>
         <Paper style={styles.Paper}>
           <button onClick={handleButtonClick} value='pin'>Pin Location</button>
         </Paper>
