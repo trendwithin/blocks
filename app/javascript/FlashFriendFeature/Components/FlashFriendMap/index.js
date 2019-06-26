@@ -15,7 +15,7 @@ export default class extends Component {
       lng: coords.lng,
     })
 
-    this.renderMap();
+    this.renderMap()
   }
 
   componentDidUpdate(prevProps, prevState) {
