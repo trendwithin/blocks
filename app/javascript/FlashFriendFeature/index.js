@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import FlashFriendForm from './Components/FlashFriendForm'
 import Map from './Components/FlashFriendMap'
+import Tabs from './Components/Tabs'
+import Swipeable from './Components/SwipeableTabs'
 
 export default class extends Component {
   state = {
@@ -34,6 +36,7 @@ export default class extends Component {
     return <Fragment>
       <Map coords={currentLocation} markers={markers}/>
       <FlashFriendForm coords={currentLocation} markerData={this.getLocalPins}/>
+      <Swipeable pinData={markers} />
     </Fragment>
 
   }
