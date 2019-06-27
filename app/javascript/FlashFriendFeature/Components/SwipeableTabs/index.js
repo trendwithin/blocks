@@ -4,6 +4,7 @@ import { makeStyles, Theme, useTheme, createStyles } from '@material-ui/core/sty
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Paper from '@material-ui/core/Paper'
+import Swipes from './Swipes'
 
 export default ( { pinData }) => {
   const [value, setValue] = React.useState(0)
@@ -23,8 +24,7 @@ export default ( { pinData }) => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab label='All' />
-        <Tab label='Next' />
+        <Tab label='Matches' />
         {
           pinData !== undefined
             ? pinData.map(item =>
@@ -42,13 +42,16 @@ export default ( { pinData }) => {
       {
         pinData !== undefined
           ? pinData.map(item =>
-             <div key={item.id}>{item.attributes.longitude}</div>
+            <Swipes pin={item} />
           )
-          : <div>Loading</div>
+          : <div></div>
       }
-      <div>{value}</div>
-      <div>New Item</div>
-      <div>Last Item</div>
+      {
+          pinData !== undefined && pinData.length === 0
+            ? <div> No Records </div>
+            : <div></div>
+
+      }
     </SwipeableViews>
   </Fragment>
 }
