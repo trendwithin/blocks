@@ -15,7 +15,7 @@ export default class extends Component {
       lng: coords.lng,
     })
 
-    this.renderMap()
+    this.renderMap();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -23,11 +23,15 @@ export default class extends Component {
     if (prevProps !== this.props) {
       const { coords } = this.props
       const { lat, lng } = coords
-
+      const { map } = this.state
       this.setState({
         lat: lat,
         lng: lng
       })
+
+      if(map) {
+        map.setCenter(new google.maps.LatLng(lat, lng))
+      }
     }
 
     if(prevProps.markers !== this.props.markers) {
@@ -49,6 +53,7 @@ export default class extends Component {
       center: { lat: lat, lng: lng },
       zoom: 16,
     })
+
     this.setState({ map: map })
     this.resizeMap(map)
   }
@@ -61,6 +66,7 @@ export default class extends Component {
     const { map } = this.state
     const infoWindow = new window.google.maps.InfoWindow()
     const contentString = 'String'
+
     markers.map(data => {
       const lat = data.attributes.latitude
       const lng = data.attributes.longitude
@@ -70,6 +76,7 @@ export default class extends Component {
           title: 'Title'
         }
       )
+
       marker.addListener('click', function() {
         infoWindow.setContent(contentString)
         infoWindow.open(map, marker)

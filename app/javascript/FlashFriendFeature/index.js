@@ -30,12 +30,18 @@ export default class extends Component {
     })
   }
 
+  pinMapLocation = (item) => {
+    const { latitude, longitude } = item
+    this.setState({ currentLocation: Object.assign({}, this.state.currentLocation, { lat: latitude, lng: longitude })})
+  }
+
   render() {
     const { currentLocation, markers } = this.state
+    const map =   '<Map coords={currentLocation} markers={markers}/>'
     return <Fragment>
       <Map coords={currentLocation} markers={markers}/>
       <FlashFriendForm coords={currentLocation} markerData={this.getLocalPins}/>
-      <Swipeable pinData={markers} />
+      <Swipeable pinData={markers} pinLocation={this.pinMapLocation}/>
     </Fragment>
 
   }

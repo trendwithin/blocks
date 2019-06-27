@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab'
 import Paper from '@material-ui/core/Paper'
 import Swipes from './Swipes'
 
-export default ( { pinData }) => {
+export default ( { pinData, pinLocation }) => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (e, value) =>
@@ -28,7 +28,10 @@ export default ( { pinData }) => {
         {
           pinData !== undefined
             ? pinData.map(item =>
-                <Tab key={item.id} label={item.id} />
+                <Tab key={item.id}
+                 label={item.id}
+                 onClick={ ()=> {pinLocation(item.attributes)} }
+                 />
               )
             : null
         }
