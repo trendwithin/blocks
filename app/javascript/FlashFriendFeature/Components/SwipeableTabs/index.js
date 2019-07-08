@@ -6,18 +6,22 @@ import Tab from '@material-ui/core/Tab'
 import Paper from '@material-ui/core/Paper'
 import Swipes from './Swipes'
 
-export default ( { pinData, pinLocation }) => {
+export default ( { pinData, getPinLocation, pinId, onPinIdChange}) => {
   const [value, setValue] = React.useState(0)
 
-  const handleChange = (e, value) =>
+  const handleChange = (e, value) => {
     setValue(value)
+    onPinIdChange(value)
+  }
 
-  const handleChangeIndex = (value) =>
+  const handleChangeIndex = (value) => {
     setValue(value)
+    onPinIdChange(value)
+  }
 
   return <Fragment>
     <Paper>
-      <Tabs value={value}
+      <Tabs value={pinId}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
@@ -30,8 +34,8 @@ export default ( { pinData, pinLocation }) => {
             ? pinData.map(item =>
                 <Tab key={item.id}
                  label={item.id}
-                 onClick={ ()=> {pinLocation(item.attributes)} }
-                 />
+                 onClick={ ()=> { getPinLocation(item.attributes) }}
+                />
               )
             : null
         }
@@ -39,7 +43,7 @@ export default ( { pinData, pinLocation }) => {
     </Paper>
 
     <SwipeableViews
-      index={value}
+      index={pinId}
       onChangeIndex={handleChangeIndex}
     >
       {
@@ -51,7 +55,7 @@ export default ( { pinData, pinLocation }) => {
       }
       {
           pinData !== undefined && pinData.length === 0
-            ? <div> No Records </div>
+            ? <div> No Matches Found </div>
             : <div></div>
 
       }

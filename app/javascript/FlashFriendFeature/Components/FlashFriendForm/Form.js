@@ -23,7 +23,7 @@ export default (
     topics,
     onInterestSelect,
     onTopicSelect,
-    handleButtonClick
+    onButtonClick
   }) => {
 
   const populateTopics = (e) =>
@@ -69,7 +69,7 @@ export default (
       <Grid item xs={6}>
         <Paper style={styles.Paper}>
           <div className='box'>
-            <button onClick={handleButtonClick} value='find'>
+            <button onClick={onButtonClick} value='find'>
               Find Local Interest
             </button>
           </div>
@@ -78,7 +78,7 @@ export default (
 
       <Grid item xs={6}>
         <Paper style={styles.Paper}>
-          <button onClick={handleButtonClick} value='pin'>Pin Location</button>
+          <button onClick={onButtonClick} value='pin'>Pin Location</button>
         </Paper>
       </Grid>
     </Grid>

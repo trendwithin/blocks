@@ -19,7 +19,6 @@ export default class extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
     if (prevProps !== this.props) {
       const { coords } = this.props
       const { lat, lng } = coords
@@ -29,15 +28,30 @@ export default class extends Component {
         lng: lng
       })
 
-      if(map) {
-        map.setCenter(new google.maps.LatLng(lat, lng))
+      if(prevState.map !== this.state.map) {
+        map.setCenter( new google.maps.LatLng(lat, lng))
       }
+    }
+
+    if(prevProps.coords !== this.props.coords) {
+      const { lat, lng } = this.props.coords
+      const { map } = this.state
+      if (!this.isEmpty(map)) {
+       map.setCenter( {lat: lat, lng: lng} )
+     }
     }
 
     if(prevProps.markers !== this.props.markers) {
       const { markers } = this.props
       this.mapMarkers(markers)
     }
+  }
+
+  isEmpty = (obj) => {
+    for ( let prop in obj ) {
+      return false
+    }
+    return true
   }
 
   renderMap = () => {
@@ -62,12 +76,18 @@ export default class extends Component {
     window.google.maps.event.trigger(map, 'resize')
   }
 
+
+  onMarkerClick = (lat, lng, id) => {
+    this.props.onClickedPin(lat, lng, id)
+  }
+
   mapMarkers = (markers) => {
     const { map } = this.state
     const infoWindow = new window.google.maps.InfoWindow()
     const contentString = 'String'
 
     markers.map(data => {
+      const id = data.id
       const lat = data.attributes.latitude
       const lng = data.attributes.longitude
       const marker = new window.google.maps.Marker(
@@ -77,7 +97,8 @@ export default class extends Component {
         }
       )
 
-      marker.addListener('click', function() {
+      marker.addListener('click', (e) => {
+        this.onMarkerClick(lat, lng, id)
         infoWindow.setContent(contentString)
         infoWindow.open(map, marker)
       })
