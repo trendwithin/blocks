@@ -1,6 +1,7 @@
 class Pin < ApplicationRecord
   belongs_to :user
   belongs_to :topic
+  has_many :pin_messages
   reverse_geocoded_by :latitude, :longitude
   after_validation :geocode
 
