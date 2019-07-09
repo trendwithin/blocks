@@ -34,13 +34,13 @@ export default class extends Component {
     })
   }
 
-  onButtonClicked = async (e) => {
-    if (e.target.value === 'find') {
+  handleButtonClicked = async (e) => {
+  if (e.target.value === 'find') {
       const { topicId } = this.state
-      const { markerData } = this.props
+      const { onFindLocalInterestClick } = this.props
       const { data, status } = await axiosApi.get(`/pins?topic=${topicId}`, { data: 'data' })
       if (status === 200) {
-        markerData(data)
+        onFindLocalInterestClick(data)
       }
     } else if (e.target.value === 'pin') {
         const userId = document.getElementById('logout-link').getAttribute('data-user')
@@ -63,7 +63,7 @@ export default class extends Component {
          topics={topics}
          onInterestSelect={this.onInterestSelected}
          onTopicSelect={this.onTopicSelected}
-         handleButtonClick={this.onButtonClicked}
+         onButtonClick={this.handleButtonClicked}
       />
     )
   }

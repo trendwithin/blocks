@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+import InfoWindow from './InfoWindow'
 
 export default class extends Component {
   constructor(props) {
     super(props)
     this.state = {
       map: {},
+      toggledInfoWindow: false,
     }
   }
 
@@ -15,25 +18,43 @@ export default class extends Component {
       lng: coords.lng,
     })
 
-    this.renderMap()
+    this.renderMap();
   }
 
   componentDidUpdate(prevProps, prevState) {
-
     if (prevProps !== this.props) {
       const { coords } = this.props
       const { lat, lng } = coords
-
+      const { map } = this.state
       this.setState({
         lat: lat,
         lng: lng
       })
+
+      if(prevState.map !== this.state.map) {
+        map.setCenter( new google.maps.LatLng(lat, lng))
+      }
+    }
+
+    if(prevProps.coords !== this.props.coords) {
+      const { lat, lng } = this.props.coords
+      const { map } = this.state
+      if (!this.isEmpty(map)) {
+       map.setCenter( {lat: lat, lng: lng} )
+     }
     }
 
     if(prevProps.markers !== this.props.markers) {
       const { markers } = this.props
       this.mapMarkers(markers)
     }
+  }
+
+  isEmpty = (obj) => {
+    for ( let prop in obj ) {
+      return false
+    }
+    return true
   }
 
   renderMap = () => {
@@ -49,6 +70,7 @@ export default class extends Component {
       center: { lat: lat, lng: lng },
       zoom: 16,
     })
+
     this.setState({ map: map })
     this.resizeMap(map)
   }
@@ -57,11 +79,25 @@ export default class extends Component {
     window.google.maps.event.trigger(map, 'resize')
   }
 
+
+  onMarkerClick = (lat, lng, id) => {
+    this.props.onClickedPin(lat, lng, id)
+  }
+
+  addRenderToInfoWindow = (infoWindow, lat) => {
+    infoWindow.addListener('domready', e => {
+      render(<InfoWindow content={lat}/>, document.getElementById('infoWindow'))
+    })
+  }
+
+
   mapMarkers = (markers) => {
     const { map } = this.state
     const infoWindow = new window.google.maps.InfoWindow()
-    const contentString = 'String'
+    const content = '<div id="infoWindow" />'
+
     markers.map(data => {
+      const id = data.id
       const lat = data.attributes.latitude
       const lng = data.attributes.longitude
       const marker = new window.google.maps.Marker(
@@ -70,8 +106,11 @@ export default class extends Component {
           title: 'Title'
         }
       )
-      marker.addListener('click', function() {
-        infoWindow.setContent(contentString)
+
+      marker.addListener('click', (e) => {
+        this.onMarkerClick(lat, lng, id)
+        infoWindow.setContent(content)
+        this.addRenderToInfoWindow(infoWindow, lat)
         infoWindow.open(map, marker)
       })
     })

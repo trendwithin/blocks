@@ -6,9 +6,10 @@ import Swipeable from './Components/SwipeableTabs'
 export default class extends Component {
   state = {
     currentLocation: {
-      lat: 90,
-      lng: 135
-    }
+      lat: 40.372609,
+      lng: -130.428589
+    },
+    pinId: 0
   }
 
   componentDidMount () {
@@ -23,19 +24,43 @@ export default class extends Component {
       })
   }
 
-  getLocalPins = (data) => {
+  setMarkerData = (data) => {
     const  markers  = data.data
     this.setState({
-      markers: markers
+      markers
     })
+  }
+
+  handleCurrentLocationUpdate = (item) => {
+    this.pinMapLocation(item)
+  }
+
+  handleSelectedPin = (lat, lng, id) => {
+    const pinId = parseInt(id, 10)
+    this.pinMapLocation({latitude: lat, longitude: lng})
+    this.setState({ pinId: pinId })
+  }
+
+  pinMapLocation = (item) => {
+    const { latitude, longitude } = item
+    this.setState({ currentLocation: Object.assign({}, this.state.currentLocation, { lat: latitude, lng: longitude })})
+  }
+
+  resetPinId = (value) => {
+    this.setState({ pinId: value })
   }
 
   render() {
     const { currentLocation, markers } = this.state
+    const map =   '<Map coords={currentLocation} markers={markers}/>'
     return <Fragment>
-      <Map coords={currentLocation} markers={markers}/>
-      <FlashFriendForm coords={currentLocation} markerData={this.getLocalPins}/>
-      <Swipeable pinData={markers} />
+      <Map coords={currentLocation} markers={markers} onClickedPin={this.handleSelectedPin}/>
+      <FlashFriendForm coords={currentLocation} onFindLocalInterestClick={this.setMarkerData}/>
+      <Swipeable pinData={markers}
+                 getPinLocation={this.handleCurrentLocationUpdate}
+                 onPinIdChange={this.resetPinId}
+                 pinId={this.state.pinId}
+      />
     </Fragment>
 
   }
