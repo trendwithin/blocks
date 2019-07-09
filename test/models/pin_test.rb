@@ -61,4 +61,10 @@ class PinTest < ActiveSupport::TestCase
     result = pin.pins_related_by_topic.count
     assert_equal expectation, result
   end
+
+  test 'pin message count' do
+    expectation = 2
+    result = pin.pin_messages.count
+    assert_equal expectation, result
+  end
 end
