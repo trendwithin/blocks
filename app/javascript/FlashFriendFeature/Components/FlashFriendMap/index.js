@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+import InfoWindow from './InfoWindow'
 
 export default class extends Component {
   constructor(props) {
     super(props)
     this.state = {
       map: {},
+      toggledInfoWindow: false,
     }
   }
 
@@ -81,10 +84,17 @@ export default class extends Component {
     this.props.onClickedPin(lat, lng, id)
   }
 
+  addRenderToInfoWindow = (infoWindow, lat) => {
+    infoWindow.addListener('domready', e => {
+      render(<InfoWindow content={lat}/>, document.getElementById('infoWindow'))
+    })
+  }
+
+
   mapMarkers = (markers) => {
     const { map } = this.state
     const infoWindow = new window.google.maps.InfoWindow()
-    const contentString = 'String'
+    const content = '<div id="infoWindow" />'
 
     markers.map(data => {
       const id = data.id
@@ -99,7 +109,8 @@ export default class extends Component {
 
       marker.addListener('click', (e) => {
         this.onMarkerClick(lat, lng, id)
-        infoWindow.setContent(contentString)
+        infoWindow.setContent(content)
+        this.addRenderToInfoWindow(infoWindow, lat)
         infoWindow.open(map, marker)
       })
     })
