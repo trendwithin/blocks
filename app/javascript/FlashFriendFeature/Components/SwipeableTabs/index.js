@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab'
 import Paper from '@material-ui/core/Paper'
 import Swipes from './Swipes'
 
-export default ( { pinData, getPinLocation, pinId, onPinIdChange}) => {
+export default ( { pinData, getPinLocation, pinId, onPinIdChange, markerMessage }) => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (e, value) => {
@@ -28,7 +28,6 @@ export default ( { pinData, getPinLocation, pinId, onPinIdChange}) => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab label='Matches' />
         {
           pinData !== undefined
             ? pinData.map(item =>
@@ -49,7 +48,7 @@ export default ( { pinData, getPinLocation, pinId, onPinIdChange}) => {
       {
         pinData !== undefined
           ? pinData.map(item =>
-            <Swipes pin={item} />
+            <Swipes pin={item} msgs={markerMessage} />
           )
           : <div></div>
       }
