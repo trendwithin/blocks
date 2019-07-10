@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users #, only: [:index]
       resources :pins
-      resources :pin_messages, only: [:index]
+      resources :pin_messages, only: [:index, :create]
       resources :interests, only: [:index]
       get 'topics/interest_topics'
     end
