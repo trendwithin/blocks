@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_180943) do
+ActiveRecord::Schema.define(version: 2019_07_09_172233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2019_06_06_180943) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["curiosity"], name: "index_interests_on_curiosity", unique: true
+  end
+
+  create_table "pin_messages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "pin_id", null: false
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pin_id"], name: "index_pin_messages_on_pin_id"
+    t.index ["user_id"], name: "index_pin_messages_on_user_id"
   end
 
   create_table "pins", force: :cascade do |t|
@@ -54,6 +64,8 @@ ActiveRecord::Schema.define(version: 2019_06_06_180943) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "pin_messages", "pins"
+  add_foreign_key "pin_messages", "users"
   add_foreign_key "pins", "topics"
   add_foreign_key "pins", "users"
   add_foreign_key "topics", "interests"
