@@ -9,3 +9,8 @@ two:
   user: user_shane
   pin: existing_pin
   message: Response to MyText
+
+three:
+  user: user_shane
+  pin: pin_created_at_ten_mins_ago
+  message: Still there?
