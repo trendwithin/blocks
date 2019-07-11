@@ -54,7 +54,7 @@ export default ( { pinData, getPinLocation, pinId, onPinIdChange, markerMessage 
       }
       {
           pinData !== undefined && pinData.length === 0
-            ? <div> No Matches Found </div>
+            ? <Paper><div> No Matches Found </div></Paper>
             : <div></div>
 
       }

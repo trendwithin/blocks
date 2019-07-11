@@ -27,11 +27,21 @@ export default class extends Component {
   }
 
   setMarkerData = (data) => {
-    const  markers  = data.data
-    this.setState({
-      markers
-    })
-    this.setMarkerMessage(markers[0])
+    if(data.data === undefined || data.data.length == 0) {
+      this.setNoMatchesFound()
+    }
+    else {
+      const  markers  = data.data
+      this.setState({
+        markers
+      })
+      this.setMarkerMessage(markers[0])
+    }
+  }
+
+  setNoMatchesFound = () => {
+    const markers = []
+    this.setState({ markers })
   }
 
   setMarkerMessage = (marker) => {
