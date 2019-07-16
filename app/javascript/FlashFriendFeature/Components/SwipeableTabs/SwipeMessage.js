@@ -1,10 +1,11 @@
 import React from 'react'
 
-export default ( { msgs } ) => {
+
+export default ( { msgs }) => {
   return(
     <div>
-      { msgs.map(({ attributes }) =>
-        <div>{attributes.message}</div>
+      { msgs.map((item) =>
+        <div>{item}</div>
       )}
     </div>
   )

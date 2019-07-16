@@ -19,6 +19,10 @@ export default ( { pinData, getPinLocation, pinId, onPinIdChange, markerMessage 
     onPinIdChange(value)
   }
 
+  const handleFetchedMessage = (msg) => {
+    getUserMessage(msg)
+  }
+
   return <Fragment>
     <Paper>
       <Tabs value={pinId}
@@ -54,7 +58,7 @@ export default ( { pinData, getPinLocation, pinId, onPinIdChange, markerMessage 
       }
       {
           pinData !== undefined && pinData.length === 0
-            ? <div> No Matches Found </div>
+            ? <Paper><div> No Matches Found </div></Paper>
             : <div></div>
 
       }
