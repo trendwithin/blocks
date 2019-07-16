@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,27 +21,54 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function OutlinedTextFields() {
-  const classes = useStyles();
 
 
-  const handleChange = name => event => {
-    return ''
-  };
+export default class MessageModalForm extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <form className={classes.container} noValidate autoComplete="off">
-      <TextField
-        id="outlined-multiline-static"
-        label="Message"
-        multiline
-        rows="4"
-        defaultValue=""
-        className={classes.textField}
-        margin="normal"
-        variant="outlined"
-      />
-      <button>Send Message</button>
-    </form>
-  );
+  state = {
+    message: ''
+  }
+
+  handleButtonClick = (e) => {
+    e.preventDefault()
+    const { onUserSubmit } = this.props
+    onUserSubmit(this.state.message)
+  }
+
+  handleInputChange = (e) => {
+    const msg = e.target.value
+    this.setState({ message: msg })
+  }
+
+  mountClasses = () => {
+    const classes = useStyles()
+    return classes
+  }
+
+  componentDidMount() {
+    this.mountClasses
+  }
+
+  render() {
+    const classes = this.mountClasses
+    return (
+      <form className={classes.container} noValidate autoComplete="off">
+        <TextField
+          id="outlined-multiline-static"
+          label="Message"
+          multiline
+          rows="4"
+          defaultValue=""
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleInputChange}
+        />
+        <button onClick={this.handleButtonClick}>Send Message</button>
+      </form>
+    )
+  }
 }

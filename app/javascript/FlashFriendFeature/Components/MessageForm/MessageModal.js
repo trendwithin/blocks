@@ -32,19 +32,24 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-export default function SimpleModal() {
+// export default function SimpleModal() {
+export default (props) => {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen(true)
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false)
   };
+
+  const handleUserSubmit = (msg) => {
+    setOpen(false)
+  }
 
   return (
     <div>
@@ -62,59 +67,9 @@ export default function SimpleModal() {
           <p id="simple-modal-description">
             Message Text Here?
           </p>
-          <MessageModalForm />
+          <MessageModalForm onUserSubmit={handleUserSubmit} />
         </div>
       </Modal>
     </div>
   );
 }
-
-
-// import React from 'react'
-// import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-// import Modal from '@material-ui/core/Modal'
-//
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     paper: {
-//       position: 'absolute',
-//       width: 400,
-//       backgroundColor: theme.palette.background.paper,
-//       border: '2px solid #000',
-//       boxShadow: theme.shadows[5],
-//       padding: theme.spacing(2, 4, 4),
-//       outline: 'none',
-//     },
-//   }),
-// )
-//
-// export default (props) => {
-//
-//   const [open, setOpen] = React.useState(false)
-//   const handleOpen = () =>
-//     setOpen(true)
-//
-//   const handleClose = () =>
-//     setOpen(false)
-//
-//   return <div>
-//     <p>Click to get the full Modal experience!</p>
-//     <button type="button" onClick={handleOpen}>
-//       Open Modal
-//     </button>
-//     <Modal
-//       aria-labelledby="simple-modal-title"
-//       aria-describedby="simple-modal-description"
-//       open={open}
-//       onClose={handleClose}
-//     >
-//       <div>
-//       <h2 id="modal-title">Text in a modal</h2>
-//       <p id="simple-modal-description">
-//         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-//       </p>
-//       <button>Send Message</button>
-//       </div>
-//     </Modal>
-//     </div>
-// }

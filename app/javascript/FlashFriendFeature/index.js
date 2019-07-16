@@ -54,9 +54,10 @@ export default class extends Component {
   }
 
   handleSelectedPin = (lat, lng, id) => {
+    const elemPos = this.state.markers.map((x)=> x.id).indexOf(id)
     const pinId = parseInt(id, 10)
     this.pinMapLocation({latitude: lat, longitude: lng})
-    this.setState({ pinId: pinId })
+    this.setState({ pinId: elemPos })
   }
 
   pinMapLocation = (item) => {
@@ -76,12 +77,16 @@ export default class extends Component {
       })
   }
 
+  processUserMessage = (msg) => {
+    const addMessage = [...this.state.markerMessage, msg]
+  }
+
   render() {
     const { currentLocation, markers } = this.state
     const mapLink = "<Map coords={currentLocation} markers={markers} onClickedPin={this.handleSelectedPin}/>"
     const map =   '<Map coords={currentLocation} markers={markers}/>'
     return <Fragment>
-
+      <Map coords={currentLocation} markers={markers} onClickedPin={this.handleSelectedPin}/>
       <FlashFriendForm coords={currentLocation} onFindLocalInterestClick={this.setMarkerData}/>
       <Swipeable pinData={markers}
                  getPinLocation={this.handleCurrentLocationUpdate}
@@ -89,6 +94,7 @@ export default class extends Component {
                  pinId={this.state.pinId}
                  pinMessage={this.pinMessage}
                  markerMessage={this.state.markerMessage}
+                 getUserMessage={this.processUserMessage}
       />
     </Fragment>
 

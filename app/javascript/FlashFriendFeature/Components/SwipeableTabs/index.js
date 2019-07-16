@@ -19,6 +19,10 @@ export default ( { pinData, getPinLocation, pinId, onPinIdChange, markerMessage 
     onPinIdChange(value)
   }
 
+  const handleFetchedMessage = (msg) => {
+    getUserMessage(msg)
+  }
+
   return <Fragment>
     <Paper>
       <Tabs value={pinId}
