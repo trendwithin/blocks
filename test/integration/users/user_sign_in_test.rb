@@ -9,5 +9,6 @@ class UserSignInTest < ActionDispatch::IntegrationTest
   test 'sign in existing user' do
     get user_session_path
     sign_in(@user)
+    # assert_response :redirect
   end
 end
