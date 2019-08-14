@@ -1,6 +1,7 @@
 module Api
   module V1
     class PinsController < ApiVersionOneBaseController
+      before_action :authenticate_user!
       def index
         render json: PinSerializer.new(Pin.all.created_at_within_hour)
         # Pin.all functionality for Google Maps Until React/Maps Feature Complete
