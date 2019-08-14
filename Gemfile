@@ -8,6 +8,7 @@ gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'fast_jsonapi', '~> 1.5'
+gem 'jwt', '~> 1.5', '>= 1.5.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0.rc1'

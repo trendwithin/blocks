@@ -1,0 +1,4 @@
+<h1>This is the Main Page</h1>
+ <%= link_to('Logout', destroy_user_session_path, method: :delete) %>  
+<%= content_tag :div, id: 'token', data: @value do %>
+ <% end %>
