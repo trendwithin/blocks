@@ -14,6 +14,5 @@ class UserSignOutTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'This is the Main Page'
     token = page.find('div[data]')['data']
     click_link 'Logout'
-    assert_selector 'h2', text: 'Log in'
   end
 end

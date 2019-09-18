@@ -4,7 +4,12 @@
       <li class='nav-home'><i class='fa fa-home'></i>Home</li>
       <li class='nav-notification'><i class="far fa-bell" aria-hidden="true"></i>Notifications</li>
       <li class='nav-log-in'><i class="fas fa-sign-in-alt"></i> Login </li>
-      <li class='nav-log-out'><i class="fas fa-sign-in-alt"></i> Logout </li>
+
+      <li class='nav-log-out'><i class="fas fa-sign-in-alt"></i>
+        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+          <%= content_tag :div, id: 'token', data: @value || 1 do %>
+        <% end %>
+      </li>
 
       <li class='nav-signup'><i class="fab fa-wpforms"></i>Sign Up</li>
     </ul>
