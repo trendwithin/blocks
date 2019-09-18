@@ -1,0 +1,22 @@
+<header>
+  <div class="hero-text-box">
+    <h1>Blocks</h1>
+    <p>Building micro communities one block at a time.</p>
+  </div>
+</header>
+<div class="about">
+  <center>ABOUT</center>
+  <p class='p-about'>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt nesciunt ullam, soluta natus alias autem provident aliquid quod odio tenetur aliquam architecto possimus rerum, accusantium veritatis! Incidunt dolor ipsam molestias!
+  </p>
+  <%= image_tag('main/blocks-flash-friend-finder', class: 'main-flash-friend-map') %>
+</div>
+<div class="sign-up">
+  <p class="p-sign-up">
+  <button class='btn-sign-up'>  <%= link_to('Sign Up!', new_user_registration_path) %></button>
+
+  </p>
+</div>
+<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  <%= content_tag :div, id: 'token', data: @value || 1 do %>
+<% end %>

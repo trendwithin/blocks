@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  root to: 'pages#main'
+  root to: 'pages#landing'
   get 'pages/home'
-  devise_for :users
+  get '/pages/main'
+  devise_for :users, controllers: { registrations: 'registrations' }
 
 
-
+  get 'profile', to: 'user_profiles#user_profile', as: 'profile'
   get 'pins/pinned_locations'
   resources :pins
   # API
