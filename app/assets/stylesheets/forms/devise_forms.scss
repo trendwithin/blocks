@@ -1,0 +1,100 @@
+#devise-sign-up {
+  margin: 10%;
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+
+  form {
+    .field {
+      margin-top: 1em;
+    }
+    input {
+      height: 2em;
+      width: 100%;
+    }
+    input[type=submit]{
+      display: block;
+      border-radius: 4px;
+      background-color: #06948d;
+      border: none;
+      color: #FFF;
+      text-align: center;
+      font-size: 16px;
+      padding: 8px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin-top: 15px;
+      margin-left: 3px;
+      height: 3em;
+      width: 100%;
+      padding-left: 0.25em;
+    }
+
+  }
+}
+
+#devise-sign-in {
+  margin: 10%;
+
+  form {
+    input[type='email'] {
+      height: 2em;
+      width: 100%;
+    }
+    input[type='password'] {
+      height: 2em;
+      width: 100%;
+    }
+
+    input[type=submit]{
+      display: block;
+      border-radius: 4px;
+      background-color: #06948d;
+      border: none;
+      color: #FFF;
+      text-align: center;
+      font-size: 16px;
+      padding: 8px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin-top: 15px;
+      margin-left: 3px;
+      height: 3em;
+      width: 100%;
+      padding-left: 0.25em;
+    }
+  }
+}
+
+#devise-edit-regisrations {
+  @extend #devise-sign-up;
+  .column {
+    padding: 2em;
+  }
+}
+
+#devise-new-password {
+  @extend #devise-sign-up;
+}
+
+#devise-edit-password {
+  @extend #devise-sign-up;
+}
+
+#devise-new-confirmation {
+  @extend #devise-sign-up;
+}
+
+#devise-unlocks-new {
+  @extend #devise-sign-up;
+}
