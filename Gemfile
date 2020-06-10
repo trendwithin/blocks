@@ -5,7 +5,7 @@ ruby '2.5.0'
 
 #PROJECT SPECIFIC GEMS
 gem 'devise', '~> 4.7.1'
-gem 'geocoder', '~> 1.3', '>= 1.3.7'
+gem 'geocoder', '~> 1.6'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'fast_jsonapi', '~> 1.5'
 gem 'jwt', '~> 1.5', '>= 1.5.4'
